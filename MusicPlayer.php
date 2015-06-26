@@ -40,9 +40,4 @@
 </div>
 
 <ul class="playlist hidden">
-    <!--<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
-    <li audiourl="02.mp3" cover="cover2.jpg" artist="Artist 2">02.mp3</li>
-    <li audiourl="03.mp3" cover="cover3.jpg" artist="Artist 3">03.mp3</li>
-    <li audiourl="04.mp3" cover="cover4.jpg" artist="Artist 4">04.mp3</li>
-    <li audiourl="05.mp3" cover="cover5.jpg" artist="Artist 5">05.mp3</li>-->
 </ul>
