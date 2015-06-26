@@ -30,7 +30,7 @@
 </div>
 
 <div class="file">
-    <form action="process.php"method="post">
+    <form action="process.php" method="post" class="source">
         <input type="text" name="out" id="out"/>
         <input type="submit" class="save" value="Save as .m3u"/>
         <input type="hidden" value="save" name="request"/><br/>
@@ -48,6 +48,3 @@
     <li audiourl="04.mp3" cover="cover4.jpg" artist="Artist 4">04.mp3</li>
     <li audiourl="05.mp3" cover="cover5.jpg" artist="Artist 5">05.mp3</li>-->
 </ul>
-
-<div name="source" class="source hidden">
-</div>

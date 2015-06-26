@@ -139,7 +139,11 @@ jQuery(document).ready(function() {
         e.preventDefault();
         text = "data/01.mp3"
         $('.playlist').append('<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>');
-        $('.source').append('<input type="hidden" name="song[]">'+ text +'</li>');
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "song[]");
+        input.setAttribute("value", "01.mp3");
+        $(".source").append(input);
         initAudio($('.playlist li:last-child'));
     });
 
