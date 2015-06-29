@@ -47,7 +47,4 @@
             break;
         }
     
-?>$sql = "SELECT name, url from videos where name like :name";
-        $param = array(
-            ":name" => $name."%"
-            );
+?>
