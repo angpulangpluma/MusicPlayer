@@ -28,15 +28,21 @@
 </div>
 
 <div class="file">
-    <form action="process.php" method="post" class="source">
+    <form action="includes/process.php" method="post" class="source">
         <input type="text" name="out" id="out"/>
         <input type="submit" class="save" value="Save as .m3u"/>
         <input type="hidden" value="save" name="request"/><br/>
     </form>
+    <form action="includes/process.php" method="post">
     <input type="text" id="in"/>
-    <button class="load">Load .m3u</button><br/>
-    <input type="text" id="initem"/>
+    <button class="load">Load .m3u</button>
+    <input type="hidden" value="load" name="request"/><br/>
+    </form>
+    <form action="includes/process.php" method="post">
+    <input type="file" name="file" class="file"/>
+    <input type="hidden" value="add" name="request">
     <button class="add" >Add to playlist</button>
+    </form>
 </div>
 
 <ul class="playlist hidden">

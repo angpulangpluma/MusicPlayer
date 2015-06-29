@@ -17,6 +17,10 @@ jQuery(document).ready(function() {
     var volume = $('.volume');
     var paused = true;
 
+    function clearPlaylist(){
+        //$(.)
+    }
+
     function initAudio(elem) {
         var url = elem.attr('audiourl');
         var title = elem.text();
@@ -137,12 +141,14 @@ jQuery(document).ready(function() {
 
     $('.add').click(function(e){
         e.preventDefault();
-        text = "data/01.mp3"
-        $('.playlist').append('<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>');
+        //text = "data/01.mp3";
+        //$('.playlist').append('<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>');
+        text = $(".file").value;
+        $('.playlist').append(text);
         var input = document.createElement("input");
         input.setAttribute("type", "hidden");
         input.setAttribute("name", "song[]");
-        input.setAttribute("value", "01.mp3");
+        input.setAttribute("value", text);
         $(".source").append(input);
         initAudio($('.playlist li:last-child'));
     });

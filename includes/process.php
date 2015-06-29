@@ -1,6 +1,7 @@
 <?php
-include("m3uexporter.php");
+    include("m3uexporter.php");
     include("v4_playlist_functions.php");
+    include("playlist.database.php");
 
         $request = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
         #print_r($request);
@@ -16,10 +17,9 @@ include("m3uexporter.php");
             case 'add':
                 $name = $_FILES['file']['name'];
                 $temp = $_FILES['file']['tmp_name'];
-
-                move_uploaded_file($temp, "data/".$name);
-                $url = "http://localhost/htdocs/VideoPlayer/data/$name";
-                //query here
+                pitem_add($name,$temp);
+                die();
+                break;
         }
     
 ?>
