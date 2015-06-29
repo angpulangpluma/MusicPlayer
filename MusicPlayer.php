@@ -28,8 +28,13 @@
 </div>
 
 <div class="functions">
+    <div class="error">
+        <p id="title"></p>
+        <p id="message"></p>
+    </div>
+
     <!-- <form action="MusicPlayer.php" method="post" class="source"> -->
-    <form action="includes/process.php" method="post" class="source">
+    <form action="includes/process.php" name="createplaylist" method="post" class="source" onsubmit="return validateForm(this)">
         <input type="text" name="out" id="out"/>
         <input type="submit" class="save" value="Save as .m3u"/>
         <input type="hidden" value="save" name="request"/><br/>
@@ -43,10 +48,10 @@
     </form>
 
     <!-- <form method="post" action="MusicPlayer.php" enctype="multipart/form-data"> -->
-    <form method="post" action="includes/process.php" enctype="multipart/form-data">
+    <form name="addplaylist" method="post" action="includes/process.php" enctype="multipart/form-data" onsubmit="return validateform(this)">
     <input type="file" name="file[]" id="file" multiple/>
     <input type="hidden" value="add" name="request">
-    <input type="submit" value="Add to playlist" name="submit"/>
+    <input type="submit" value="Add to playlist" name="submit" class="add"/>
     </form>
 </div>
 
