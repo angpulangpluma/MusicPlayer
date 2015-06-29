@@ -16,6 +16,7 @@ jQuery(document).ready(function() {
     var tracker = $('.tracker');
     var volume = $('.volume');
     var paused = true;
+    var temp;
 
     function clearPlaylist(){
         //$(.)
@@ -29,9 +30,9 @@ jQuery(document).ready(function() {
 
         $('.player .title').text(title);
         $('.player .artist').text(artist);
-        $('.player .cover').css('background-image','url(data/' + cover+')');;
+        $('.player .cover').css('background-image','url(data/cover/' + cover+')');;
 
-        song = new Audio('data/' + url);
+        song = new Audio('data/music/' + url);
 
         // timeupdate event listener
         song.addEventListener('timeupdate',function (){
@@ -139,18 +140,31 @@ jQuery(document).ready(function() {
         $(prev).addClass('active');
     });
 
+    document.getElementById('file').onchange = function () {
+        //temp = this.value;
+        //console.log(temp);
+        //alert('Selected file: ' + this.value);
+    };
+
     $('.add').click(function(e){
+        //console.log("adding file!");
         e.preventDefault();
         //text = "data/01.mp3";
         //$('.playlist').append('<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>');
-        text = $(".file").value;
-        $('.playlist').append(text);
-        var input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", "song[]");
-        input.setAttribute("value", text);
-        $(".source").append(input);
-        initAudio($('.playlist li:last-child'));
+        //console.log(temp);
+        //var startIndex = (temp.indexOf('\\') >= 0 ? temp.lastIndexOf('\\') : temp.lastIndexOf('/'));
+        //var filename = temp.substring(startIndex);
+        //if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+          //  filename = filename.substring(1);
+        //}
+        //console.log(filename);
+        //$('.playlist').append(filename);
+        //var input = document.createElement("input");
+        //input.setAttribute("type", "hidden");
+        //input.setAttribute("name", "song[]");
+        //input.setAttribute("value", filename);
+        //$(".source").append(input);
+        //initAudio($('.playlist li:last-child'));
     });
 
     // show playlist

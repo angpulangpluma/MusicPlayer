@@ -27,23 +27,34 @@
     <div class="tracker"></div>
 </div>
 
-<div class="file">
+<div class="functions">
+    <!-- <form action="MusicPlayer.php" method="post" class="source"> -->
     <form action="includes/process.php" method="post" class="source">
         <input type="text" name="out" id="out"/>
         <input type="submit" class="save" value="Save as .m3u"/>
         <input type="hidden" value="save" name="request"/><br/>
     </form>
+
+    <!-- <form action="MusicPlayer.php" method="post"> -->
     <form action="includes/process.php" method="post">
     <input type="text" id="in"/>
     <button class="load">Load .m3u</button>
     <input type="hidden" value="load" name="request"/><br/>
     </form>
-    <form action="includes/process.php" method="post">
-    <input type="file" name="file" class="file"/>
+
+    <!-- <form method="post" action="MusicPlayer.php" enctype="multipart/form-data"> -->
+    <form method="post" action="includes/process.php" enctype="multipart/form-data">
+    <input type="file" name="file[]" id="file" multiple/>
     <input type="hidden" value="add" name="request">
-    <button class="add" >Add to playlist</button>
+    <input type="submit" value="Add to playlist" name="submit"/>
     </form>
 </div>
 
 <ul class="playlist hidden">
 </ul>
+
+<?php
+    // for($i=0;$i<count($_FILES['file']['name']); $i++){
+    //     echo $_FILES['file']['name'][$i];
+    // }
+?>
