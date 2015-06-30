@@ -24,11 +24,11 @@ jQuery(document).ready(function() {
         var artist = elem.attr('artist');
 
         if(title.length > 10){
-            $('.player .title').html("<marquee width='25%'>" + title + "</marquee>");
+            $('.player .title').append("<marquee width='25%'>" + title + "</marquee>");
         } else $('.player .title').text(title);
 
         if(artist.length > 9){
-            $('.player .artist').html("<marquee width='25%'>" + artist + "</marquee>");
+            $('.player .artist').append("<marquee width='25%'>" + artist + "</marquee>");
         } else $('.player .artist').text(artist);
 
         $('.player .cover').css('background-image','url(data/cover/' + cover+')');

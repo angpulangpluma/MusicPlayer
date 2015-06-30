@@ -1,5 +1,5 @@
 <?php
- $sandbox = true;
+ $sandbox = false;
 
  if($sandbox === true){
  	define("DBUSER", "root");
