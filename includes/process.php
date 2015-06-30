@@ -19,7 +19,7 @@
         		}
         	break;
             case 'add':
-            echo "here!"
+            // echo "here!"
             for($i=0; $i< count($_FILES['file']['name']); $i++){
                 $name = $_FILES['file']['name'][$i];
                 // echo $name."<br/>";
@@ -50,7 +50,7 @@
                 }//end outer if
                 
             }//end for
-            // header("../MusicPlayer.php");
+            header("../MusicPlayer.php");
             break;
         }
     

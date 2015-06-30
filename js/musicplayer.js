@@ -23,16 +23,15 @@ jQuery(document).ready(function() {
         var cover = elem.attr('cover');
         var artist = elem.attr('artist');
 
-        console.log("url: " + url);
-        console.log("title: " + title);
+        if(title.length > 10){
+            $('.player .title').html("<marquee>" + title + "</marquee>");
+        } else $('.player .title').text(title);
 
-        $('.player .title').text(title);
-        $('.player .artist').text(artist);
+        if(artist.length > 9){
+            $('.player .artist').html("<marquee>" + artist + "</marquee>");
+        } else $('.player .artist').text(artist);
+
         $('.player .cover').css('background-image','url(data/cover/' + cover+')');
-
-        if (title.length > 5){
-            $('.player .title').animate({scrollLeft: $('.player .title').scrollLeft() + 200}, 800);
-        }
 
         song = new Audio('data/music/' + url);
 
@@ -76,6 +75,7 @@ jQuery(document).ready(function() {
         $('.playlist li').removeClass('active');
         elem.addClass('active');
 
+        $('.marquee').marquee();
     }
     function playAudio() {
         song.play();
