@@ -24,11 +24,11 @@ jQuery(document).ready(function() {
         var artist = elem.attr('artist');
 
         if(title.length > 10){
-            $('.player .title').html("<marquee>" + title + "</marquee>");
+            $('.player .title').html("<marquee width='25%'>" + title + "</marquee>");
         } else $('.player .title').text(title);
 
         if(artist.length > 9){
-            $('.player .artist').html("<marquee>" + artist + "</marquee>");
+            $('.player .artist').html("<marquee width='25%'>" + artist + "</marquee>");
         } else $('.player .artist').text(artist);
 
         $('.player .cover').css('background-image','url(data/cover/' + cover+')');
@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
         start: function(event,ui) {},
         slide: function(event, ui) {
             song.currentTime = ui.value;
-        },
+        },   
         stop: function(event,ui) {}
     });
 
@@ -74,8 +74,6 @@ jQuery(document).ready(function() {
 
         $('.playlist li').removeClass('active');
         elem.addClass('active');
-
-        $('.marquee').marquee();
     }
     function playAudio() {
         song.play();
