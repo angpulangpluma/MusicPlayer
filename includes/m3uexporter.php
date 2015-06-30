@@ -26,7 +26,7 @@ class m3uExporter {
 					echo "\n".$loc;
 				}
 			} else{
-				echo "\n".$loc;
+				echo "\n".$sloc;
 			}
 		} else die("Will not create file because information is missing.");
 	}

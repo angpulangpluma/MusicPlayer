@@ -10,10 +10,16 @@
         		$file = trim($request['out']);
         		if($file!=""){
             		$exp = new m3uExporter($file);
-            		$exp -> createFile($request['song']);
+                    $files = array();
+                    foreach($request['song'] as $key => $song){
+                        array_push($files, $request['song'][$key]);
+                    }
+                    // print_r($request['song']); exit;
+            		$exp -> createFile($files);
         		}
         	break;
             case 'add':
+            echo "here!"
             for($i=0; $i< count($_FILES['file']['name']); $i++){
                 $name = $_FILES['file']['name'][$i];
                 // echo $name."<br/>";
@@ -32,18 +38,19 @@
                     // echo $new_name."<br/>";
                     // print_r($res['data']);
                     // echo ($res['count']+1);exit;
-                }
+                }//end else
 
                 $url       = "../data/music/" . $new_name;
                 $url2      = "data/music/" . $new_name;
                 if(move_uploaded_file($temp, $url)){
                     if(pitem_add($new_name, $url, $url2)){
-                        // return true;
-                    }
-                    // return false;
-                }
-                // return false;
-            }
+
+                    }//end inner if
+                    
+                }//end outer if
+                
+            }//end for
+            // header("../MusicPlayer.php");
             break;
         }
     

@@ -16,11 +16,6 @@ jQuery(document).ready(function() {
     var tracker = $('.tracker');
     var volume = $('.volume');
     var paused = true;
-    var temp;
-
-    function clearPlaylist(){
-        //$(.)
-    }
 
     function initAudio(elem) {
         var url = elem.attr('audiourl');
@@ -28,9 +23,16 @@ jQuery(document).ready(function() {
         var cover = elem.attr('cover');
         var artist = elem.attr('artist');
 
+        console.log("url: " + url);
+        console.log("title: " + title);
+
         $('.player .title').text(title);
         $('.player .artist').text(artist);
-        $('.player .cover').css('background-image','url(data/cover/' + cover+')');;
+        $('.player .cover').css('background-image','url(data/cover/' + cover+')');
+
+        if (title.length > 5){
+            $('.player .title').animate({scrollLeft: $('.player .title').scrollLeft() + 200}, 800);
+        }
 
         song = new Audio('data/music/' + url);
 
@@ -138,33 +140,23 @@ jQuery(document).ready(function() {
             playAudio();
         $('.playlist li.active').removeClass('active');
         $(prev).addClass('active');
+
     });
 
-    document.getElementById('file').onchange = function () {
-        //temp = this.value;
-        //console.log(temp);
-        //alert('Selected file: ' + this.value);
-    };
-
     $('.add').click(function(e){
-        //console.log("adding file!");
         e.preventDefault();
-        //text = "data/01.mp3";
-        //$('.playlist').append('<li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>');
-        //console.log(temp);
-        //var startIndex = (temp.indexOf('\\') >= 0 ? temp.lastIndexOf('\\') : temp.lastIndexOf('/'));
-        //var filename = temp.substring(startIndex);
-        //if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
-          //  filename = filename.substring(1);
-        //}
-        //console.log(filename);
-        //$('.playlist').append(filename);
-        //var input = document.createElement("input");
-        //input.setAttribute("type", "hidden");
-        //input.setAttribute("name", "song[]");
-        //input.setAttribute("value", filename);
-        //$(".source").append(input);
-        //initAudio($('.playlist li:last-child'));
+        var list = document.getElementById('file');
+            for (var i = 0; i < list.files.length; i++){
+                var name = list.files.item(i).name;
+                // console.log(name);
+                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", "song[]");
+                input.setAttribute("value", name);
+                $(".source").append(input);
+                initAudio($('.playlist li:last-child'));
+            }
     });
 
     // show playlist
