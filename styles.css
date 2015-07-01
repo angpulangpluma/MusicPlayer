@@ -15,6 +15,7 @@
     font-family: verdana;
     left: 167px;
     position: absolute;
+    width: 25%;
 
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -49,7 +50,7 @@
 }
 
 .cover {
-    background: transparent url(data/cover1.jpg) no-repeat scroll center top;
+    background: transparent url(data/cover/cover1.jpg) no-repeat scroll center top;
     border-radius: 5px 5px 5px 5px;
     height: 94px;
     left: 20px;
