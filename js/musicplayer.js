@@ -11,7 +11,70 @@
  
 jQuery(document).ready(function() {
 
-    
+    // inner variables
+    var song;
+    var tracker = $('.tracker');
+    var volume = $('.volume');
+    var paused = true;
+
+    function initAudio(elem) {
+        var url = elem.attr('audiourl');
+        var title = elem.text();
+        var cover = elem.attr('cover');
+        var artist = elem.attr('artist');
+
+        if(title.length > 10){
+            $('.player .title').html("<marquee width='25%'>" + title + "</marquee>");
+        } else $('.player .title').text(title);
+
+        if(artist.length > 9){
+            $('.player .artist').html("<marquee width='25%'>" + artist + "</marquee>");
+        } else $('.player .artist').text(artist);
+
+        $('.player .cover').css('background-image','url(data/cover/' + cover+')');
+
+        song = new Audio('data/music/' + url);
+
+        // timeupdate event listener
+        song.addEventListener('timeupdate',function (){
+            var curtime = parseInt(song.currentTime, 10);
+            tracker.slider('value', curtime);
+        });
+
+        if($('ul').has('li').length == 1){
+            // set volume
+    song.volume = 1;
+
+    // initialize the volume slider
+    volume.slider({
+        range: 'min',
+        min: 0,
+        max: 100,
+        value: 80,
+        start: function(event,ui) {},
+        slide: function(event, ui) {
+            song.volume = ui.value / 100;
+        },
+        stop: function(event,ui) {},
+    });
+
+    // empty tracker slider
+    tracker.slider({
+        range: 'min',
+        min: 0, max: 10,
+        start: function(event,ui) {},
+        slide: function(event, ui) {
+            song.currentTime = ui.value;
+        },   
+        stop: function(event,ui) {}
+    });
+
+        elem.addClass('active');
+        }
+
+        $('.playlist li').removeClass('active');
+        elem.addClass('active');
+    }
     function playAudio() {
         song.play();
 
@@ -76,6 +139,65 @@ jQuery(document).ready(function() {
         $('.playlist li.active').removeClass('active');
         $(prev).addClass('active');
 
+    });
+
+    /*$('.add').click(function (e) {
+        e.preventDefault();
+        // var url=$(this).data('url');
+        // var req = document.getElementById('request');
+        var list = document.getElementById('file');
+        var files = new Array();
+            for (var i = 0; i < list.files.length; i++){
+                var name = list.files.item(i).name;
+                // console.log(name);
+                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", "song[]");
+                input.setAttribute("value", name);
+                $(".source").append(input);
+                initAudio($('.playlist li:last-child'));
+                files.push(name);
+            }
+            location.href="includes/uploads.php?file=" + files;
+    });*/
+
+    $('.add').click(function(e){
+        e.preventDefault();
+
+        var fileSelect = document.getElementById('file');
+        var files = fileSelect.files;
+        var formData = new FormData();
+
+        for(var i=0; i<files.length; i++){
+            var file = files[i];
+
+            //error checking here
+
+            formData.append('files[]', file);
+        }
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', 'includes/process.php', true);
+
+        xhr.onload = function(){
+            if (xhr.status === 200){
+                alert('File/s uploaded');
+            } else alert('Error uploading files');
+        }
+
+        xhr.send(formData);
+
+        var list = document.getElementById('file');
+        var files = new Array();
+            for (var i = 0; i < list.files.length; i++){
+                var name = list.files.item(i).name;
+                // console.log(name);
+                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
+                initAudio($('.playlist li:last-child'));
+                files.push(name);
+            }
     });
 
     // show playlist
