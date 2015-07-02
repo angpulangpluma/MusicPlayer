@@ -3,22 +3,23 @@
     include("v4_playlist_functions.php");
     include("playlist.database.php");
 
-        $request = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
-        // print_r($request);
-        switch($request['request']){
-        	case 'save':
-        		$file = trim($request['out']);
-        		if($file!=""){
-            		$exp = new m3uExporter($file);
-                    $files = array();
-                    foreach($request['song'] as $key => $song){
-                        array_push($files, $request['song'][$key]);
-                    }
-                    // print_r($request['song']); exit;
-            		$exp -> createFile($files);
-        		}
-        	break;
-            case 'add':
+        // $request = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
+           $request = $_GET;
+        // print_r($request); exit;
+        // switch($request['request']){
+        // 	case 'save':
+        // 		$file = trim($request['out']);
+        // 		if($file!=""){
+        //     		$exp = new m3uExporter($file);
+        //             $files = array();
+        //             foreach($request['song'] as $key => $song){
+        //                 array_push($files, $request['song'][$key]);
+        //             }
+        //             // print_r($request['song']); exit;
+        //     		$exp -> createFile($files);
+        // 		}
+        // 	break;
+        //     case 'add':
             // echo "here!"
             for($i=0; $i< count($_FILES['file']['name']); $i++){
                 $name = $_FILES['file']['name'][$i];
@@ -51,7 +52,7 @@
                 
             }//end for
             header("../MusicPlayer.php");
-            break;
-        }
+        //     break;
+        // }
     
 ?>

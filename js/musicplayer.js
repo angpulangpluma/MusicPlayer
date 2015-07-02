@@ -11,70 +11,7 @@
  
 jQuery(document).ready(function() {
 
-    // inner variables
-    var song;
-    var tracker = $('.tracker');
-    var volume = $('.volume');
-    var paused = true;
-
-    function initAudio(elem) {
-        var url = elem.attr('audiourl');
-        var title = elem.text();
-        var cover = elem.attr('cover');
-        var artist = elem.attr('artist');
-
-        if(title.length > 10){
-            $('.player .title').html("<marquee width='25%'>" + title + "</marquee>");
-        } else $('.player .title').text(title);
-
-        if(artist.length > 9){
-            $('.player .artist').html("<marquee width='25%'>" + artist + "</marquee>");
-        } else $('.player .artist').text(artist);
-
-        $('.player .cover').css('background-image','url(data/cover/' + cover+')');
-
-        song = new Audio('data/music/' + url);
-
-        // timeupdate event listener
-        song.addEventListener('timeupdate',function (){
-            var curtime = parseInt(song.currentTime, 10);
-            tracker.slider('value', curtime);
-        });
-
-        if($('ul').has('li').length == 1){
-            // set volume
-    song.volume = 1;
-
-    // initialize the volume slider
-    volume.slider({
-        range: 'min',
-        min: 0,
-        max: 100,
-        value: 80,
-        start: function(event,ui) {},
-        slide: function(event, ui) {
-            song.volume = ui.value / 100;
-        },
-        stop: function(event,ui) {},
-    });
-
-    // empty tracker slider
-    tracker.slider({
-        range: 'min',
-        min: 0, max: 10,
-        start: function(event,ui) {},
-        slide: function(event, ui) {
-            song.currentTime = ui.value;
-        },   
-        stop: function(event,ui) {}
-    });
-
-        elem.addClass('active');
-        }
-
-        $('.playlist li').removeClass('active');
-        elem.addClass('active');
-    }
+    
     function playAudio() {
         song.play();
 
@@ -141,25 +78,6 @@ jQuery(document).ready(function() {
 
     });
 
-    $('.add').click(function (e) {
-        e.preventDefault();
-        var url=$(this).data('url');
-        var req = document.getElementById('request');
-        var list = document.getElementById('file');
-            for (var i = 0; i < list.files.length; i++){
-                var name = list.files.item(i).name;
-                // console.log(name);
-                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
-                var input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("name", "song[]");
-                input.setAttribute("value", name);
-                $(".source").append(input);
-                initAudio($('.playlist li:last-child'));
-            }
-            location.href=url + "&file=" + list + "&request=" + req;
-    });
-
     // show playlist
     $('.pl').click(function (e) {
         e.preventDefault();
@@ -175,14 +93,14 @@ jQuery(document).ready(function() {
         initAudio($(this));
     });
 
-    $('.save').click(function(){
+    /*$('.save').click(function(){
         var optionTexts = [];
             $(".playlist ul").each(function() { 
             optionTexts.push("data/" + $(this).text()); 
             console.log("data/" + $(this).text());
             });
         
-    });
+    });*/
 
     if($('ul').has('li').length >= 1){
         // initialization - first element in playlist
