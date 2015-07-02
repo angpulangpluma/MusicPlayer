@@ -48,10 +48,10 @@
     </form>
 
     <!-- <form name="addplaylist" method="post" enctype="multipart/form-data"> -->
-    <form name="addplaylist" method="post" action="includes/process.php" enctype="multipart/form-data">
+    <form name="addplaylist" method="post" enctype="multipart/form-data">
     <input type="file" name="file[]" id="file" multiple/>
-    <input type="hidden" value="add" name="request">
-    <input type="submit" value="Add to playlist" name="add" class="add"/>
+    <input type="hidden" value="add" id="request" name="request">
+    <input type="submit" data-url="includes/process.php?form-action=add" value="Add to playlist" name="add" class="add"/>
     </form>
 </div>
 

@@ -141,8 +141,10 @@ jQuery(document).ready(function() {
 
     });
 
-    $('.add').click(function(e){
+    $('.add').click(function (e) {
         e.preventDefault();
+        var url=$(this).data('url');
+        var req = document.getElementById('request');
         var list = document.getElementById('file');
             for (var i = 0; i < list.files.length; i++){
                 var name = list.files.item(i).name;
@@ -155,6 +157,7 @@ jQuery(document).ready(function() {
                 $(".source").append(input);
                 initAudio($('.playlist li:last-child'));
             }
+            location.href=url + "&file=" + list + "&request=" + req;
     });
 
     // show playlist
