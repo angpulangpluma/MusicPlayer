@@ -31,7 +31,7 @@
                 // echo $base_name."<br/>";
                 $new_name  = "";    
                 $res = pitem_get($base_name);#exit;
-                if($res['count'] == 0){
+                if($res['count'] == 0 && file_exists($temp)){
                     $new_name  = $base_name . $ext;
                 }else{
                     // $new_name = substr($base_name,0, -1) . ($res['count'] + 1) . $ext;
