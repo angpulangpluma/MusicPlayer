@@ -169,15 +169,16 @@ jQuery(document).ready(function() {
         var files = fileSelect.files;
         var formData = new FormData();
 
-        // for(var i=0; i<files.length; i++){
-        //     var file = files[i];
+        for(var i=0; i<files.length; i++){
+            var file = files.item(i);
 
-        //     //error checking here
+            //error checking here
 
-        //     formData.append('files[]', file);
-        // }
+            formData.append('files[]', file, file.name);
+        }
 
-        formData.append('files[]', files);
+        // formData.append('files[]', files);
+        console.log(formData);
 
         for (var i = 0; i < files.length; i++){
             var name = files.item(i).name;
