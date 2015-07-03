@@ -164,6 +164,9 @@ jQuery(document).ready(function() {
 
     $('.add').click(function(e){
         e.preventDefault();
+        if(!paused){
+            stopAudio();
+        }
 
         var fileSelect = document.getElementById('file');
         var files = fileSelect.files;
@@ -178,14 +181,11 @@ jQuery(document).ready(function() {
         }
 
         // formData.append('files[]', files);
-        console.log(formData);
-
-        for (var i = 0; i < files.length; i++){
-            var name = files.item(i).name;
-            // console.log(name);
-            $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
-            initAudio($('.playlist li:last-child'));
+        console.log("To send through ajax: ");
+        for (var i=0; i<files.length; i++){
+            console.log(files.item(i).name + "\n");
         }
+        // alert(JSON.stringify(formData));
 
         $.ajax({
             url: 'includes/process.php',
@@ -195,12 +195,36 @@ jQuery(document).ready(function() {
                 return myXhr;
             },
             data: formData,
+             success: function(data, textStatus, jqXHR)
+        {
+            if(typeof data.error === 'undefined')
+            {
+                // Success so call function to process the form
+                console.log(textStatus);
+                for (var i = 0; i < files.length; i++){
+                    var name = files.item(i).name;
+                    // console.log(name);
+                    $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
+                    initAudio($('.playlist li:last-child'));
+                }
+            }
+            else
+            {
+                // Handle errors here
+                console.log('ERRORS: ' + data.error);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            // Handle errors here
+            console.log('ERRORS: ' + textStatus);
+            // STOP LOADING SPINNER
+        },
             cache: false,
             contentType: false,
             processData: false
-        }).success( function(data){
-                alert("Data uploaded: " +data);
-            });
+        });
+
     });
 
     // show playlist
