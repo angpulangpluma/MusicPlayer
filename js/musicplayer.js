@@ -51,7 +51,9 @@ jQuery(document).ready(function() {
                 if (next.length == 0) {
                     next = $('.playlist li:first-child');
                     stopAudio();
+                    tracker.slider('value', 0);
                     initAudio(next);
+                    tracker.slider("option", "max", song.duration);
                 }
             }
         });
@@ -59,29 +61,16 @@ jQuery(document).ready(function() {
             // set volume
             song.volume = 1;
 
-            // // initialize the volume slider
-            // volume.slider({
+            // // empty tracker slider
+            // tracker.slider({
             //     range: 'min',
-            //     min: 0,
-            //     max: 100,
-            //     value: 80,
+            //     min: 0, max: 10,
             //     start: function(event,ui) {},
             //     slide: function(event, ui) {
-            //         song.volume = ui.value / 100;
+            //         song.currentTime = ui.value;
             //     },
-            //     stop: function(event,ui) {},
+            //     stop: function(event,ui) {}
             // });
-
-            // empty tracker slider
-            tracker.slider({
-                range: 'min',
-                min: 0, max: 10,
-                start: function(event,ui) {},
-                slide: function(event, ui) {
-                    song.currentTime = ui.value;
-                },
-                stop: function(event,ui) {}
-            });
 
 
         // $('.playlist li').removeClass('active');
@@ -131,24 +120,11 @@ jQuery(document).ready(function() {
         initAudio(next);
         if(!paused){
             tracker.slider('value', 0);
-            tracker.slider("option", "max", song.duration);
-            // song.addEventListener('timeupdate',function (){
-            //     var curtime = parseInt(song.currentTime, 10);
-            //     tracker.slider('value', curtime);
-            // });
-
-            // // empty tracker slider
-            // tracker.slider({
-            //     range: 'min',
-            //     min: 0, max: 10,
-            //     start: function(event,ui) {},
-            //     slide: function(event, ui) {
-            //         song.currentTime = ui.value;
-            //     },
-            //     stop: function(event,ui) {}
-            // });
             playAudio();
         }
+
+        tracker.slider('value', 0);
+        tracker.slider("option", "max", song.duration);
 
         $('.playlist li.active').removeClass('active');
         $(next).addClass('active');
@@ -165,33 +141,16 @@ jQuery(document).ready(function() {
             prev = $('.playlist li:last-child');
         }
         initAudio(prev);
-        if(!paused)
+        if(!paused){
+            tracker.slider('value', 0);
             playAudio();
+        }
+        tracker.slider("option", "max", song.duration);
+
         $('.playlist li.active').removeClass('active');
         $(prev).addClass('active');
 
     });
-
-    /*$('.add').click(function (e) {
-        e.preventDefault();
-        // var url=$(this).data('url');
-        // var req = document.getElementById('request');
-        var list = document.getElementById('file');
-        var files = new Array();
-            for (var i = 0; i < list.files.length; i++){
-                var name = list.files.item(i).name;
-                // console.log(name);
-                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
-                var input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("name", "song[]");
-                input.setAttribute("value", name);
-                $(".source").append(input);
-                initAudio($('.playlist li:last-child'));
-                files.push(name);
-            }
-            location.href="includes/uploads.php?file=" + files;
-    });*/
 
     $('.add').click(function(e){
         e.preventDefault();
@@ -240,6 +199,15 @@ jQuery(document).ready(function() {
                         $('.playlist li:first-child').addClass('active');
                         start = false;
                     }
+                    $('.playlist li:last-child').click(function(e){
+                        stopAudio();
+                        initAudio($(this));
+                        tracker.slider('value', 0);
+                        tracker.slider("option", "max", song.duration);
+                        $('.playlist li.active').removeClass('active');
+                        $(this).addClass('active');
+                        playAudio();               
+                    });
                     initAudio($('.playlist li:last-child'));
                 }
                 initAudio($('.playlist li:first-child'));
@@ -272,27 +240,7 @@ jQuery(document).ready(function() {
         } else $('.playlist').fadeIn(300);
     });
 
-    // playlist elements - click
-    $('.playlist li').click(function () {
-        stopAudio();
-        initAudio($(this));
-    });
-
-    /*$('.save').click(function(){
-        var optionTexts = [];
-            $(".playlist ul").each(function() { 
-            optionTexts.push("data/" + $(this).text()); 
-            console.log("data/" + $(this).text());
-            });
-        
-    });*/
-
-    // if($('ul').has('li').length >= 1){
-    //     // initialization - first element in playlist
-    // initAudio($('.playlist li:first-child'));
-
-    // // set volume
-    // song.volume = 1;
+    
 
     // initialize the volume slider
     volume.slider({
