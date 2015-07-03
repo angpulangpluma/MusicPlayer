@@ -24,11 +24,11 @@ jQuery(document).ready(function() {
         var artist = elem.attr('artist');
 
         if(title.length > 10){
-            $('.player .title').html("<marquee width='25%'>" + title + "</marquee>");
+            $('.player .title').html("<marquee>" + title + "</marquee>");
         } else $('.player .title').text(title);
 
         if(artist.length > 9){
-            $('.player .artist').html("<marquee width='25%'>" + artist + "</marquee>");
+            $('.player .artist').html("<marquee>" + artist + "</marquee>");
         } else $('.player .artist').text(artist);
 
         $('.player .cover').css('background-image','url(data/cover/' + cover+')');
@@ -169,35 +169,37 @@ jQuery(document).ready(function() {
         var files = fileSelect.files;
         var formData = new FormData();
 
-        for(var i=0; i<files.length; i++){
-            var file = files[i];
+        // for(var i=0; i<files.length; i++){
+        //     var file = files[i];
 
-            //error checking here
+        //     //error checking here
 
-            formData.append('files[]', file);
+        //     formData.append('files[]', file);
+        // }
+
+        formData.append('files[]', files);
+
+        for (var i = 0; i < files.length; i++){
+            var name = files.item(i).name;
+            // console.log(name);
+            $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
+            initAudio($('.playlist li:last-child'));
         }
 
-        var xhr = new XMLHttpRequest();
-
-        xhr.open('POST', 'includes/process.php', true);
-
-        xhr.onload = function(){
-            if (xhr.status === 200){
-                alert('File/s uploaded');
-            } else alert('Error uploading files');
-        }
-
-        xhr.send(formData);
-
-        var list = document.getElementById('file');
-        var files = new Array();
-            for (var i = 0; i < list.files.length; i++){
-                var name = list.files.item(i).name;
-                // console.log(name);
-                $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
-                initAudio($('.playlist li:last-child'));
-                files.push(name);
-            }
+        $.ajax({
+            url: 'includes/process.php',
+            type: "POST",
+            xhr: function(){
+                var myXhr = $.ajaxSettings.xhr();
+                return myXhr;
+            },
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        }).success( function(data){
+                alert("Data uploaded: " +data);
+            });
     });
 
     // show playlist

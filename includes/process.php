@@ -3,7 +3,8 @@
     include("v4_playlist_functions.php");
     include("playlist.database.php");
 
-        $request = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
+        // $request = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
+        // print_r($_FILES); exit;
            // $request = $_GET;
         // print_r($request); exit;
         // switch($request['request']){
@@ -20,12 +21,11 @@
         // 		}
         // 	break;
         //     case 'add':
-            echo "here!"; exit;
-            for($i=0; $i< count($_FILES['files']['name']); $i++){
-                $name = $_FILES['files']['name'][$i];
+            for($i=0; $i< count($_FILES); $i++){
+                $name = $_FILES[$i]['name'];
                 // echo $name."<br/>";
-                $temp = $_FILES['files']['tmp_name'][$i];
-                $ext       = ".".pathinfo($_FILES['file']['names'][$i], PATHINFO_EXTENSION);
+                $temp = $_FILES[$i]['tmp_name'];
+                $ext       = ".".pathinfo($_FILES[$i]['name'], PATHINFO_EXTENSION);
                 // echo $ext."<br/>";
                 $base_name = str_replace($ext, "", $name);
                 // echo $base_name."<br/>";

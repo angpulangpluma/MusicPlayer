@@ -49,7 +49,7 @@
     </form> -->
 
     <!-- <form name="addplaylist" method="post" enctype="multipart/form-data"> -->
-    <form id="addplaylist" action="includes/process.php" method="post" enctype="multipart/form-data">
+    <form id="addplaylist" method="post" enctype="multipart/form-data">
     <input type="file" name="file[]" id="file" multiple/>
     <!--<input type="hidden" value="add" id="request" name="request">
     <input type="submit" data-url="includes/uploads.php?form-action=add" value="Add to playlist" name="add" class="add"/> -->
