@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Script Tutorials" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>HTML5 Audio player with playlist | Script Tutorials</title>
+    <title>HTML5 Audio player with playlist</title>
     <!-- add styles and scripts -->
     <link href="styles.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
@@ -51,8 +51,7 @@
     <!-- <form name="addplaylist" method="post" enctype="multipart/form-data"> -->
     <form id="addplaylist" method="post" enctype="multipart/form-data">
     <input type="file" name="file[]" id="file" multiple/>
-    <!--<input type="hidden" value="add" id="request" name="request">
-    <input type="submit" data-url="includes/uploads.php?form-action=add" value="Add to playlist" name="add" class="add"/> -->
+    <!--<input type="hidden" value="add" id="request" name="request">-->
     <input type="submit" value="Add to playlist" id="add" class="add"/>
     </form>
 </div>
