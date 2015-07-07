@@ -7,7 +7,7 @@
     <title>HTML5 Audio player with playlist</title>
     <!-- add styles and scripts -->
     <link href="styles.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/musicplayer.js"></script>
     </script>

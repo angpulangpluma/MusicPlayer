@@ -118,11 +118,13 @@ jQuery(document).ready(function() {
 
         initAudio(next);
         tracker.slider('value', 0);
+
         if(!paused){
             // tracker.slider('value', 0);
+            tracker.slider("option", "max", song.duration);
             playAudio();
         }
-        tracker.slider("option", "max", song.duration);
+        // tracker.slider("option", "max", song.duration);
 
         $('.playlist li.active').removeClass('active');
         next.addClass('active');
