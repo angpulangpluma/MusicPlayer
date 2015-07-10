@@ -18,7 +18,9 @@ jQuery(document).ready(function() {
     var volume = $('.volume');
     var paused = true;
     var start = true;
+    var songdur;
 
+    //create javascript class to store song info
     function initAudio(elem) {
         var url = elem.attr('audiourl');
         var title = elem.text();
@@ -35,6 +37,7 @@ jQuery(document).ready(function() {
 
         $('.player .cover').css('background-image','url(data/cover/' + cover+')');
 
+        song = undefined;
         song = new Audio('data/music/' + url);
 
         // timeupdate event listener
@@ -43,8 +46,15 @@ jQuery(document).ready(function() {
             tracker.slider('value', curtime);
         });
 
+        song.addEventListener('loadedmetadata', function() {
+            // console.log("Playing " + audio.src + ", for: " + audio.duration + "seconds.");
+            // audio.play(); 
+            songdur = song.duration;
+        });
+
         // end listener – play next
         song.addEventListener('ended',function(){
+            //count++;
             var next = $('.playlist li.active').next();
             if (next.length == 0) {
                 next = $('.playlist li:first-child');
@@ -53,32 +63,41 @@ jQuery(document).ready(function() {
             $('.playlist li.active').removeClass('active');
             next.addClass('active');
             initAudio(next);
+            // tracker.slider("option", "max", song.duration);
             if(!paused){
                 playAudio();
             } else stopAudio();
-            tracker.slider("option", "max", song.duration);
+            // tracker.slider("option", "max", song.duration);
         });
 
-            // set volume
-            song.volume = 1;
+        // console.log(tracker.slider("instance"));
+        // console.log(tracker.slider("option", "max"));
+        // console.log(song.duration);
 
-            // // empty tracker slider
-            // tracker.slider({
-            //     range: 'min',
-            //     min: 0, max: 10,
-            //     start: function(event,ui) {},
-            //     slide: function(event, ui) {
-            //         song.currentTime = ui.value;
-            //     },
-            //     stop: function(event,ui) {}
-            // });
+            // // set volume
+            // song.volume = 1;
 
     }
     function playAudio() {
         // cursong = song;
-        song.play();
+        // tracker.slider("option", "max", song.duration);
 
-        tracker.slider("option", "max", song.duration);
+        // empty tracker slider
+        // tracker.slider({
+        //     range: 'min',
+        //     min: 0,
+        //     max: parseInt(Math.ceil(song.duration)),
+        //     value: 0,
+        //     start: function(event,ui) {},
+        //     slide: function(event, ui) {
+        //         song.currentTime = ui.value;
+        //     },
+        //     stop: function(event,ui) {}
+        // });
+        // songdur =  || 0;
+        tracker.slider("option", "max", parseInt(Math.ceil(songdur), 10));
+        console.log(tracker.slider("option", "max"));
+        song.play();
 
         $('.play').addClass('hidden');
         $('.pause').addClass('visible');
@@ -121,7 +140,7 @@ jQuery(document).ready(function() {
 
         if(!paused){
             // tracker.slider('value', 0);
-            tracker.slider("option", "max", song.duration);
+            // tracker.slider("option", "max", song.duration);
             playAudio();
         }
         // tracker.slider("option", "max", song.duration);
@@ -151,7 +170,7 @@ jQuery(document).ready(function() {
             // tracker.slider('value', 0);
             playAudio();
         }
-        tracker.slider("option", "max", song.duration);
+        // tracker.slider("option", "max", song.duration);
 
         $('.playlist li.active').removeClass('active');
         prev.addClass('active');
@@ -199,6 +218,7 @@ jQuery(document).ready(function() {
                     $('.playlist').append('<li audiourl="' + name +'" cover="cover1.jpg" artist="Artist 1">' + name + '</li>');
                     if($('ul').has('li').length > 0 && start){
                         $('.playlist li:first-child').addClass('active');
+                        initAudio($('.playlist li:first-child'));
                         start = false;
                     }
                     // $('.playlist li:last-child').addEventListener("onclick", function(e){
@@ -210,9 +230,9 @@ jQuery(document).ready(function() {
                     //     $(this).addClass('active');
                     //     playAudio();               
                     // });
-                    initAudio($('.playlist li:last-child'));
+                    //initAudio($('.playlist li:last-child'));
                 }
-                initAudio($('.playlist li:first-child'));
+              // songcount += files.length;
             }
             else
             {
@@ -252,6 +272,23 @@ jQuery(document).ready(function() {
         playAudio();
     });
 
+    // } else{
+    $('.player .cover').css('background','grey');
+    // }
+
+     // empty tracker slider
+     tracker.slider({
+        range: 'min',
+        min: 0, 
+        max: 10,
+        value: 0,
+        start: function(event,ui) {},
+        slide: function(event, ui) {
+            song.currentTime = ui.value;
+        },
+        stop: function(event,ui) {}
+    });
+
     // initialize the volume slider
     volume.slider({
         range: 'min',
@@ -264,23 +301,5 @@ jQuery(document).ready(function() {
         },
         stop: function(event,ui) {},
     });
-
-    // empty tracker slider
-    tracker.slider({
-        range: 'min',
-        min: 0, max: 10,
-        start: function(event,ui) {
-
-        },
-        slide: function(event, ui) {
-            song.currentTime = ui.value;
-        },
-        stop: function(event,ui) {
-            
-        }
-    });
-    // } else{
-    $('.player .cover').css('background','grey');
-    // }
 });
  
